@@ -58,6 +58,14 @@ ifeq ($(TARGET_BOARD_PLATFORM),mt6592)
 LOCAL_CFLAGS += -DMTK_MT6592
 endif
 
+SYSTEM_CORE_INIT_DEFINES := BOARD_CHARGING_MODE_BOOTING_LPM
+
+$(foreach system_core_init_define,$(SYSTEM_CORE_INIT_DEFINES), \
+  $(if $($(system_core_init_define)), \
+    $(eval LOCAL_CFLAGS += -D$(system_core_init_define)=\"$($(system_core_init_define))\") \
+  ) \
+)
+
 LOCAL_MODULE:= init
 LOCAL_C_INCLUDES += \
     system/extras/ext4_utils \
