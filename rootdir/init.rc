@@ -646,29 +646,29 @@ service debuggerd64 /system/bin/debuggerd64
     class main
     writepid /dev/cpuset/system-background/tasks
 
-service ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio log
+#service ril-daemon /system/bin/rild
+#    class main
+#    socket rild stream 660 root radio
+#    socket sap_uim_socket1 stream 660 bluetooth bluetooth
+#    socket rild-debug stream 660 radio system
+#    user root
+#    group radio cache inet misc audio log
 
 service surfaceflinger /system/bin/surfaceflinger
     class core
-    user system
+    user root
     group graphics drmrpc
     onrestart restart zygote
 
 service drm /system/bin/drmserver
     class main
     user drm
-    group drm system inet drmrpc
+    group drm system inet drmrpc sdcard_r
 
 service media /system/bin/mediaserver
     class main
-    user media
-    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm
+    user root
+    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm qcom_diag media sdcard_r system net_bt_stack
     ioprio rt 4
 
 # One shot invocation to deal with encrypted volume.
@@ -688,7 +688,7 @@ service encrypt /system/bin/vdc --wait cryptfs enablecrypto inplace default noui
 service bootanim /system/bin/bootanimation
     class core
     user graphics
-    group graphics audio
+    group graphics media audio
     disabled
     oneshot
 
