@@ -808,9 +808,13 @@ static void export_kernel_boot_props() {
         { "ro.boot.baseband",   "ro.baseband",   "unknown", },
         { "ro.boot.bootloader", "ro.bootloader", "unknown", },
         { "ro.boot.hardware",   "ro.hardware",   "unknown", },
-#ifndef IGNORE_RO_BOOT_REVISION
-        { "ro.boot.revision",   "ro.revision",   "0", },
+#ifdef MTK_MT6582     
+        { "ro.boot.hardware",   "ro.hardware",   "mt6582", },
 #endif
+#ifdef MTK_MT6592     
+        { "ro.boot.hardware",   "ro.hardware",   "mt6592", },
+#endif 
+        { "ro.boot.revision",   "ro.revision",   "0", },
     };
     for (size_t i = 0; i < ARRAY_SIZE(prop_map); i++) {
         char value[PROP_VALUE_MAX];
